@@ -23,8 +23,8 @@
 // key that should be used. Any keys associated with NSNull will not participate
 // in JSON serialization.
 //
-// Returns a dictionary mapping property keys to JSON key paths (as strings) or
-// NSNull values.
+// Returns a dictionary mapping property keys to one or multiple JSON key paths
+// (as strings or arrays of strings).
 + (NSDictionary *)JSONKeyPathsByPropertyKey;
 
 @optional
@@ -156,11 +156,11 @@ extern const NSInteger MTLJSONAdapterErrorInvalidJSONMapping;
 // Subclasses may override this method to customize the adapter's seralizing
 // behavior. You should not call this method directly.
 //
-// key - The property key to retrieve the corresponding JSON key path for. This
-//       argument must not be nil.
+// The default implementation returns the result +JSONKeyPathsByPropertyKey
+// result of the current model class.
 //
-// Returns a key path to use, or nil to omit the property from JSON.
-- (NSString *)JSONKeyPathForPropertyKey:(NSString *)key;
+// Returns a dictionary of
+- (NSDictionary *)JSONKeyPathsByPropertyKey;
 
 @end
 
@@ -168,5 +168,7 @@ extern const NSInteger MTLJSONAdapterErrorInvalidJSONMapping;
 
 + (id)modelOfClass:(Class)modelClass fromJSONDictionary:(NSDictionary *)JSONDictionary __attribute__((deprecated("Replaced by +modelOfClass:fromJSONDictionary:error:")));
 - (id)initWithJSONDictionary:(NSDictionary *)JSONDictionary modelClass:(Class)modelClass __attribute__((deprecated("Replaced by -initWithJSONDictionary:modelClass:error:")));
+
+- (NSString *)JSONKeyPathForPropertyKey:(NSString *)key __attribute__((unavailable("Replaced by -JSONKeyPathsByPropertyKey")));
 
 @end

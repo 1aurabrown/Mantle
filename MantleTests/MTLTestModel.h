@@ -12,6 +12,8 @@ extern NSString * const MTLTestModelErrorDomain;
 extern const NSInteger MTLTestModelNameTooLong;
 extern const NSInteger MTLTestModelNameMissing;
 
+
+
 @interface MTLEmptyTestModel : MTLModel
 @end
 
@@ -75,4 +77,11 @@ extern const NSInteger MTLTestModelNameMissing;
 
 // Maps a non-existant property "name" to the "username" key in JSON.
 @interface MTLIllegalJSONMappingModel : MTLModel <MTLJSONSerializing>
+@end
+
+@interface MTLMultiKeypathModel : MTLModel <MTLJSONSerializing>
+
+// This property is associated with the "location" and "length" keys in JSON.
+@property (readonly, nonatomic, assign) NSRange range;
+
 @end
